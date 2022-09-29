@@ -38,8 +38,9 @@ def before_request_callback():
         pass
     elif verify_jwt_in_request():
         usuario = get_jwt_identity()
+        print(type(usuario))
         if usuario["rol"]is not None:
-            tienePersmiso=validarPermiso(endPoint,request.method,usuario["rol"]["_id"])
+            tienePersmiso=validarPermiso(endPoint,request.method,usuario["rol"])
             if not tienePersmiso:
                 return jsonify({"message": "Permiso denegado"}), 401
         else:
