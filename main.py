@@ -286,7 +286,6 @@ def eliminarUsuario(id):
     return jsonify(json)
 @app.route("/usuarios/<string:id>/rol/<string:id_rol>",methods=['PUT'])
 def modificarUsuarioRol(id,id_rol):
-    #data = request.get_json()
     headers = {"Content-Type": "application/json; charset=utf-8"}
     url = dataConfig["url-backend-security"] + '/usuarios/' + id + '/rol/' + id_rol
     response = requests.put(url, headers=headers)
@@ -424,12 +423,11 @@ def getPermisosRoles():
     response = requests.get(url, headers=headers)
     json = response.json()
     return jsonify(json)
-@app.route("/permisos-roles/rol/<string:id>/permiso/<string:id_permiso>",methods=['POST'])
+@app.route("/permisos-roles/rol/<string:id_rol>/permiso/<string:id_permiso>",methods=['POST'])
 def crearRolPermiso(id_rol,id_permiso):
-    data = request.get_json()
     headers = {"Content-Type": "application/json; charset=utf-8"}
     url = dataConfig["url-backend-security"] + '/permisos-roles/rol/' + id_rol + '/permiso/' + id_permiso
-    response = requests.post(url, headers=headers,json=data)
+    response = requests.post(url, headers=headers)
     json = response.json()
     return jsonify(json)
 @app.route("/permisos-roles/<string:id>",methods=['GET'])
@@ -441,10 +439,9 @@ def getPermisoRol(id):
     return jsonify(json)
 @app.route("/permisos-roles/<string:id>/rol/<string:id_rol>/permiso/<string:id_permiso>",methods=['PUT'])
 def modificarRolPermiso(id,id_rol,id_permiso):
-    data = request.get_json()
     headers = {"Content-Type": "application/json; charset=utf-8"}
     url = dataConfig["url-backend-security"] + '/permisos-roles/' + id + '/rol/' + id_rol + '/permiso/' + id_permiso
-    response = requests.put(url, headers=headers, json=data)
+    response = requests.put(url, headers=headers)
     json = response.json()
     return jsonify(json)
 @app.route("/permisos-roles/<string:id>",methods=['DELETE'])
