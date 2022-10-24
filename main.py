@@ -20,7 +20,7 @@ jwt = JWTManager(app)
 def create_token():
     data = request.get_json()
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url=dataConfig["url-backend-security"]+'/usuarios/validar'
+    url=dataConfig['url-backend-security']+'/usuarios/validar'
     response = requests.post(url, json=data, headers=headers)
     if response.status_code == 200:
         user = response.json()
@@ -40,6 +40,8 @@ def before_request_callback():
         usuario = get_jwt_identity()
         #print(type(usuario))
         if usuario["rol"]is not None:
+            print(usuario["rol"])
+            print(endPoint)
             tienePersmiso=validarPermiso(endPoint,request.method,usuario["rol"])
             if not tienePersmiso:
                 return jsonify({"message": "Permiso denegado"}), 401
